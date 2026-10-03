@@ -1,4 +1,4 @@
-# WARG Autonomy Bootcamp
+# WARG Autonomy Bootcamp:
 
 This bootcamp teaches you the tools we use to write the software that flies our drones: the `warg` cli, sparse checkouts, project manifests, pytest, behavior trees, and a full drone mission flown against a simulator.
 
