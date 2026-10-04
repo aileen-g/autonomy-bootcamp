@@ -37,7 +37,7 @@ class SimCamera(AbstractCamera):
             width: Frame width in pixels.
             height: Frame height in pixels.
         """
-        # TODO(bootcamper): save the arguments and set up your state
+        # Save the arguments and set up your state
         # (FixedCamera.__init__ shows you what that looks like).
 
         self._width = width
@@ -49,8 +49,6 @@ class SimCamera(AbstractCamera):
 
     def initialize_camera(self) -> bool:
         """Turn the fake camera on and start counting from index 0."""
-        # TODO(bootcamper): implement.
-
         self._initialized = True
         self._captures = 0
         return True
@@ -58,18 +56,18 @@ class SimCamera(AbstractCamera):
 
     def capture_frame(self) -> CameraFrame:
         """Make up the next frame."""
-        # TODO(bootcamper): implement. Don't forget: RuntimeError if the
-        # camera isn't on, the same pixels every time for a given index,
+        # Don't forget: RuntimeError if the camera isn't on, the same pixels every time for a given index,
         # timestamps that always go up, and returning a copy.
 
         if not self._initialized:
             raise RuntimeError(
-                "Call initialize_camera() first"
+                "capture_frame() called on a camera that is not initialized; "
+                "call initialize_camera() first"
             )
 
         index = self._captures
         rng = np.random.default_rng(index) # random number generator with index as seed
-        rgb = rng.integers(0, 256, size=(self._height, self._width, 3), dtype=np.uint8) # draws integers 0-255 with dimensions height x width. 3 represents the colour channels (rgb)
+        rgb = rng.integers(0, 256, size=(self._height, self._width, 3), dtype=np.uint8) # integers 0-255; dimensions height x width; 3 represents the colour channels (rgb)
 
         frame = CameraFrame(rgb=rgb, timestamp=self._next_timestamp(), index=index) # calls CameraFrame constructor with rgb, timestamp, index
         self._captures += 1
@@ -78,7 +76,6 @@ class SimCamera(AbstractCamera):
 
     def stop(self) -> None:
         """Turn the fake camera off. Safe to call more than once."""
-        # TODO(bootcamper): implement.
         self._initialized = False
 
 
